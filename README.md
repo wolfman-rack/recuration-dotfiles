@@ -8,7 +8,7 @@ Attempt to start a trendy dotfiles habit
 Configuration
 ----------
 
-You probably want to edit `.stow-local-ignore`.  It already is configured to ignore the `.git` files as well as `Readme` and `Makefile`.   Use the `-n` option as in `stow -n -v --target="$HOME" -S .` to check which links will be created.  The `--adopt` option may also be useful.
+You probably want to edit `.stow-local-ignore`.  It already is configured to ignore the `.git` files as well as `README.md` and `Makefile`.   Use the `-n` option as in `stow -n -v --target="$HOME" -S .` to check which links will be created.  The `--adopt` option may also be useful.
 
 
 
