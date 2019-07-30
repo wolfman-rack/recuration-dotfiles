@@ -94,6 +94,7 @@ Testing
 Lint bootstrap files with `test/lint.sh`
 
 Build docker image with `packer build test/packer.json`
+* `docker run --rm --name recuration-workstation-0 --interactive --tty --user b --workdir /home/b recuration-workstation:master /bin/bash`
 
 Test `bootstrap.yaml` locally with `ansible-playbook --connection local --inventory localhost, --become --ask-become-pass bootstrap/bootstrap.yaml`
 

@@ -18,7 +18,7 @@
       loop:
         "{{ bootstrap_packages }}"
 
-    - name: "add '{{ bootstrap_username }}' user"
+    - name: "add '{{ bootstrap_username }}' group"
       group:
         name: "{{ bootstrap_username }}"
         state: present
@@ -31,13 +31,30 @@
         # weird you're not in your own group by default
         groups: "{{ bootstrap_groups + [bootstrap_username] }}"
         shell: "/bin/bash"
-        createhome: true
+        create_home: true
+        skeleton: false
 
     - name: "clone dotfiles"
+      become: yes
+      become_user: "{{ bootstrap_username }}"
+      become_method: su
       git:
         repo: "{{ bootstrap_repo }}"
         dest: "{{ bootstrap_dest }}"
         version: "{{ bootstrap_version }}"
+
+    - name: "stow bash"
+      register: result_stow_bash
+      become: yes
+      become_user: "{{ bootstrap_username }}"
+      become_method: su
+      # noqa301 - Commands should not change things if nothing needs doing
+      command: "stow bash"
+      args:
+        chdir: "{{ bootstrap_dest }}"
+
+    - name: "show stow bash results"
+      debug: var=result_stow_bash
 
     - name: "debug tasks"
       changed_when: false
@@ -45,6 +62,7 @@
       command: "{{ item }}"
       loop:
         - "id {{ bootstrap_username }}"
+        - "ls -lah /home/{{ bootstrap_username }}/"
 
     - name: "show debug tasks results"
       debug:
