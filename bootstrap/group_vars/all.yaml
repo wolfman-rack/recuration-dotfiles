@@ -1,0 +1,76 @@
+---
+
+bootstrap_username: "b"
+
+bootstrap_repo: "https://github.com/wolfman-rack/recuration-dotfiles"
+bootstrap_dest: "/home/{{ bootstrap_username }}/recuration-dotfiles"
+bootstrap_version: "master"
+
+# https://wiki.debian.org/SystemGroups
+bootstrap_groups:
+  # Members of this group can execute any command with sudo or pkexec. (See the
+  # default configuration in /etc/sudoers)
+  - sudo
+  # This group can be used locally to give a set of users access to an audio
+  # device (the soundcard or a microphone).
+  - audio
+  # This group can be used locally to give a set of users access to a video
+  # device (like the framebuffer, the videocard or a webcam).
+  - video
+  # Allows members to mount (only with the options nodev and nosuid, for
+  # security reasons) and umount removable devices through pmount.
+  - plugdev
+  # Members of this group can manage network interfaces through the network
+  # manager and wicd.
+  - netdev
+
+  - docker
+
+bootstrap_packages_test:
+  - aptitude
+  - git
+
+bootstrap_packages:
+  # core
+  - aptitude
+  - apt-utils
+  - curl
+  - git
+  - ipcalc
+  - jq
+  # https://wiki.debian.org/NetworkManager
+  - network-manager
+  - python3
+  - python3-apt
+  - stow
+  - wget
+
+  # fun
+  - cowsay
+  - cowsay-off
+  - lolcat
+
+  # groups
+  - docker.io
+
+  # tmux
+  - tmux
+
+  # warrior
+  - bugwarrior
+  - taskwarrior
+  - timewarrior
+
+  # web
+  - chromium
+  - firefox-esr
+  - webext-browserpass
+  - webext-https-everywhere
+  - webext-treestyletab
+  - webext-ublock-origin
+  - webext-umatrix
+
+  # zsh
+  - zsh
+  - zsh-autosuggestions
+  - zsh-syntax-highlighting

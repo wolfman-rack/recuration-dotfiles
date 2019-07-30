@@ -1,0 +1,57 @@
+---
+
+- name: "workstation bootstrap"
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: "ping"
+      ping:
+
+    - name: "package install"
+      apt:
+        name: "{{ package }}"
+        state: present
+        update_cache: true
+      loop_control:
+        loop_var: package
+      loop:
+        "{{ bootstrap_packages }}"
+
+    - name: "add '{{ bootstrap_username }}' user"
+      group:
+        name: "{{ bootstrap_username }}"
+        state: present
+
+    - name: "add '{{ bootstrap_username }}' user"
+      user:
+        name: "{{ bootstrap_username }}"
+        state: present
+        group: "{{ bootstrap_username }}"
+        # weird you're not in your own group by default
+        groups: "{{ bootstrap_groups + [bootstrap_username] }}"
+        shell: "/bin/bash"
+        createhome: true
+
+    - name: "clone dotfiles"
+      git:
+        repo: "{{ bootstrap_repo }}"
+        dest: "{{ bootstrap_dest }}"
+        version: "{{ bootstrap_version }}"
+
+    - name: "debug tasks"
+      changed_when: false
+      register: result_debug_tasks
+      command: "{{ item }}"
+      loop:
+        - "id {{ bootstrap_username }}"
+
+    - name: "show debug tasks results"
+      debug:
+        msg:
+          - "{{ debug_task.cmd }}"
+          - "{{ debug_task.stdout_lines }}"
+      loop: "{{ result_debug_tasks.results }}"
+      loop_control:
+        loop_var: debug_task
+        label: item.cmd
