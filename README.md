@@ -68,13 +68,24 @@ Example Workflows:
     * `git flow feature checkout ${my-feature-name}`
     * `git flow feature rebase`
   * `git flow feature publish ${my-feature-name}`
-  * Create pull request
+  * Create pull request against develop, discuss, merge
   * `git flow feature finish  ${my-feature-name}`
+    * merges local feature branch into local develop
+    * delete feature branch from local and origin
+    * return to develop branch
 
 * Cut a new release
+  * Make sure to refresh from origin
   * `git flow release start   ${release-version}`
+    * creates new release branch from develop
+  * Bump the version number now! :question:
   * `git flow release publish ${release-version}`
+  * Create pull request against master, discuss, merge
   * `git flow release finish  ${release-version}`
+    * release is tagged
+    * merged back into develop in case any changes since start
+    * delete release branch from local and origin
+    * return to develop branch
   * `git push origin --tags`
 
 Testing
