@@ -8,16 +8,50 @@ case $- in
       *) return;;
 esac
 
+#
+# ---------- begin history
+#
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
+# Ignore more
+HISTIGNORE='ls:ll:ls -lah:pwd:clear:history:bg:fg:exit'
+
 # append to the history file, don't overwrite it
 shopt -s histappend
+# force commands entered on more than one line to be fit on only one
+shopt -s cmdhist
+# results of history substitution are not immediately passed to the shell parser
+shopt -s histverify
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+
+# The  number  of commands to remember in the command history (see HISTORY below).  If the value is 0,
+# commands are not saved in the history list.  Numeric values less than zero result in  every  command
+# being  saved on the history list (there is no limit).  The shell sets the default value to 500 after
+# reading any startup files.
+HISTSIZE=15000
+
+# The  maximum number of lines contained in the history file.  When this variable is assigned a value,
+# the history file is truncated, if necessary, to contain no more than that number of lines by  remov‐
+# ing  the  oldest  entries.   The history file is also truncated to this size after writing it when a
+# shell exits.  If the value is 0, the history file is truncated to zero size.  Non-numeric values and
+# numeric  values less than zero inhibit truncation.  The shell sets the default value to the value of
+# HISTSIZE after reading any startup files.
+HISTFILESIZE="INFINITY"
+#HISTFILESIZE=2000000
+
+# Set time format
+HISTTIMEFORMAT='%F %T '
+
+# Append new history lines, clear the history list, re-read the history list, print prompt.
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+#
+# ---------- end history
+#
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -87,11 +121,6 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -110,4 +139,11 @@ if ! shopt -oq posix; then
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
+fi
+
+################################################################################
+
+# powerline
+if [ -f /usr/share/powerline/integrations/powerline.sh ]; then
+  . /usr/share/powerline/integrations/powerline.sh
 fi
