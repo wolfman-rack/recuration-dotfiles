@@ -1,7 +1,7 @@
 all:
 
 stow: 
-	stow -v --target="$$HOME" -S .
+	stow --verbose --target="$$HOME" --stow .
 
 install:
 	# scripts needed for setup
