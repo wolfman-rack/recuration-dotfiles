@@ -1,19 +1,15 @@
 {
-    "_comment": "// run_command default except --network=host",
-    "_comment": "// debian{testing, testing-20190708, bullseye",
+    "_comment": "// debian:bullseye",
 
     "builders":[{
         "type": "docker",
-        "image": "debian:testing",
-        "export_path": "tmp/debian-testing.tar",
+        "image": "debian:bullseye",
+        "export_path": "tmp/debian-bullseye.tar",
         "changes": [
                 "ENV RECURATION true",
                 "USER b",
                 "WORKDIR /home/b",
                 "ENV DEBUG true"
-        ],
-        "run_command": [
-                "--detach", "--interactive", "--tty", "--network=host", "--entrypoint=/bin/sh", "--", "{{.Image}}"
         ]
     }],
     "provisioners":[

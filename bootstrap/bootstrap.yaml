@@ -39,8 +39,7 @@
         src: templates/sudoers-00-nopasswd
         dest: /etc/sudoers.d/00-nopasswd
         mode: '0440'
-      when: bootstrap_debug | true
-
+      when: bootstrap_debug | bool
 
     - name: "clone dotfiles"
       become: true
