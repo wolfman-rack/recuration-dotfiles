@@ -36,11 +36,13 @@ bootstrap_packages:
   # core
   - aptitude
   - apt-utils
+  - bash-completion
   - command-not-found
   - curl
   - git
   - ipcalc
   - jq
+  - man-db
   - myrepos
   # https://wiki.debian.org/NetworkManager
   - network-manager
@@ -68,7 +70,11 @@ bootstrap_packages:
   - tmux
 
   # ui
-  - powerline
+  # - arc-theme
+  - powerline-doc
+  - python3-powerline
+  - python3-powerline-gitstatus
+  - python3-powerline-taskwarrior
 
   # warrior
   - bugwarrior

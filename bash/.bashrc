@@ -47,7 +47,7 @@ HISTFILESIZE="INFINITY"
 HISTTIMEFORMAT='%F %T '
 
 # Append new history lines, clear the history list, re-read the history list, print prompt.
-export PROMPT_COMMAND="history -a; history -c; history -r; ${PROMPT_COMMAND}"
+export PROMPT_COMMAND="history -a; history -c; history -r;"
 # write to perpetual history file
 export PROMPT_COMMAND="${PROMPT_COMMAND}"'echo $USER pid\($$\)  ::"$(history 1)" >> ~/.bash_history_perpetual'
 
