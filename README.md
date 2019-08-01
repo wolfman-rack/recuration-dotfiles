@@ -95,6 +95,7 @@ Lint bootstrap files with `test/lint.sh`
 
 Build docker image with `packer build test/packer.json`
 * `docker run --rm --name recuration-workstation-0 --interactive --tty --user b --workdir /home/b recuration-workstation:master /bin/bash`
+* Pass `--volume recuration:/home/b` flag to create a persistent volume. Note that files are only copied from container to volume on first run when volume is created.
 
 Test `bootstrap.yaml` locally with `ansible-playbook --connection local --inventory localhost, --become --ask-become-pass bootstrap/bootstrap.yaml`
 

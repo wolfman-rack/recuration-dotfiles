@@ -34,8 +34,15 @@
         create_home: true
         skeleton: false
 
+    - name: "sudoers configuration"
+      template:
+        src: templates/sudoers-00-nopasswd
+        dest: /etc/sudoers.d/00-nopasswd
+        mode: '0440'
+      when: bootstrap_debug | bool
+
     - name: "clone dotfiles"
-      become: yes
+      become: true
       become_user: "{{ bootstrap_username }}"
       become_method: su
       git:
@@ -45,7 +52,7 @@
 
     - name: "stow bash"
       register: result_stow_bash
-      become: yes
+      become: true
       become_user: "{{ bootstrap_username }}"
       become_method: su
       # noqa301 - Commands should not change things if nothing needs doing

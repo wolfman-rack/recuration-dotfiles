@@ -47,7 +47,9 @@ HISTFILESIZE="INFINITY"
 HISTTIMEFORMAT='%F %T '
 
 # Append new history lines, clear the history list, re-read the history list, print prompt.
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a; history -c; history -r; ${PROMPT_COMMAND}"
+# write to perpetual history file
+export PROMPT_COMMAND="${PROMPT_COMMAND}"'echo $USER pid\($$\)  ::"$(history 1)" >> ~/.bash_history_perpetual'
 
 #
 # ---------- end history
@@ -105,18 +107,6 @@ xterm*|rxvt*)
 *)
     ;;
 esac
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
-fi
 
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
